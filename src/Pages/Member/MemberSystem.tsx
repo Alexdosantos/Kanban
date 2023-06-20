@@ -5,6 +5,10 @@ import { GetDados } from "../../Services/GetDados";
 import { GetDelete } from "../../Services/Delete";
 import { useState, useEffect } from "react";
 import { Update } from "../../Services/Update";
+import { lightThemer, darkThemer } from "../../Theme/Theme";
+import { ThemeProvider } from "styled-components";
+import { GlobalStyle } from "../../GlobalStyle";
+import Sol from '../../assets/sun-yellow.jpg'
 
 import { CardNew } from "../../components/CardBox/CardTodo/CardNew";
 import { CardDoing } from "../../components/CardBox/CardDoing/CardDoing";
@@ -12,7 +16,8 @@ import { CardNewProps } from "../../Types/Card/CardTypes";
 import { CardDone } from "../../components/CardBox/CardDone/CardDone";
 
 const MemberSystem = () => {
-  const [dados, setDados] = useState<CardNewProps['dados']>([]);
+  const [dados, setDados] = useState<CardNewProps["dados"]>([]);
+  const [theme, setTheme] = useState<string>("dark");
 
   const fetchData = async () => {
     const response = await GetDados();
@@ -21,7 +26,7 @@ const MemberSystem = () => {
   useEffect(() => {
     fetchData();
   }, []);
-  
+
   const handleMove = async (id: string, newColumn: string) => {
     try {
       const card = dados.find((item) => item._id === id);
@@ -37,33 +42,55 @@ const MemberSystem = () => {
       console.error(error);
     }
   };
-  
-  
 
-  const handleDelete = async (id:string) => {
+  const handleDelete = async (id: string) => {
     await GetDelete(id);
 
     // Atualize o estado dados, removendo o item excluído do array
     setDados((prevDados) => prevDados.filter((item) => item._id !== id));
   };
+
+  const themeToggler = () => {
+    theme === "light" ? setTheme("dark") : setTheme("light");
+  };
   return (
     <>
-      <Nav />
-      <CardNovo getData={fetchData}/>
-      <S.CardTodo>
-        <S.TitleTodo>To Do</S.TitleTodo>
-        <CardNew dados={dados.filter((item) => item.column === 'TODO')} handleDelete={handleDelete} handleMove={handleMove}/>
-      </S.CardTodo>
+      <ThemeProvider theme={theme === "light" ? lightThemer : darkThemer}>
+        <GlobalStyle />
+        <Nav />
+        <button onClick={themeToggler}>
+          
+          {theme === "light" ? <img src={Sol} /> 
+          : <img src={Sol} />}
+        </button>
+        <CardNovo getData={fetchData} />
+        <S.CardTodo>
+          <S.TitleTodo>To Do</S.TitleTodo>
+          <CardNew
+            dados={dados.filter((item) => item.column === "TODO")}
+            handleDelete={handleDelete}
+            handleMove={handleMove}
+          />
+        </S.CardTodo>
 
-      <S.CardDoing>
-        <S.TitleTodo>Doing</S.TitleTodo>
-        <CardDoing dados={dados.filter((item) => item.column === 'DOING')}  handleDelete={handleDelete} handleMove={handleMove}/>
-      </S.CardDoing>
+        <S.CardDoing>
+          <S.TitleTodo>Doing</S.TitleTodo>
+          <CardDoing
+            dados={dados.filter((item) => item.column === "DOING")}
+            handleDelete={handleDelete}
+            handleMove={handleMove}
+          />
+        </S.CardDoing>
 
-      <S.CardDone>
-        <S.TitleTodo>Done</S.TitleTodo>
-          <CardDone dados={dados.filter((item) => item.column === "DONE")} handleDelete={handleDelete} handleMove={handleMove}/>
-      </S.CardDone>
+        <S.CardDone>
+          <S.TitleTodo>Done</S.TitleTodo>
+          <CardDone
+            dados={dados.filter((item) => item.column === "DONE")}
+            handleDelete={handleDelete}
+            handleMove={handleMove}
+          />
+        </S.CardDone>
+      </ThemeProvider>
     </>
   );
 };

@@ -1,7 +1,7 @@
-import Rotas from "./Routes/Rotas";
-import { TokenContext } from "./Context/Usercontext/UserContext";
 import { useState, useEffect } from "react";
 
+import Rotas from "./Routes/Rotas";
+import { TokenContext } from "./Context/Usercontext/UserContext";
 
 const App = () => {
   const [token, setToken] = useState<string | null>("");
