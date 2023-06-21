@@ -1,4 +1,6 @@
 import styled from "styled-components"
+import { BsFillXCircleFill} from 'react-icons/bs'; // Importe o ícone desejado
+
 
 export const CardNovo = styled.div`
     position: absolute;
@@ -9,6 +11,8 @@ export const CardNovo = styled.div`
 
     background: #EAEAEA;
     border-radius: 7px;
+    
+    
 
 
 `
@@ -28,7 +32,7 @@ export const Title = styled.h2`
 
 `
 export const CardBoxNovo = styled.div`
-    position: absolute;
+    margin: 15px;
     left: 15px;
     width: 320px;
     height: 250px;
@@ -97,6 +101,33 @@ export const ImgMais = styled.img`
     
     cursor: pointer;
 
+    
+
+`
+
+export const BTnSave = styled.button`
+    margin: 10px 0px 10px 130px;
+
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 28px;
+
+    border: none;
+    border-radius: 5px;
+
+    background: #3A72F8; 
+    color: #fff;
+    cursor: pointer;
+    
+
+`
+
+export const  BtnFechar = styled(BsFillXCircleFill) `
+    display: flex;
+    margin: 7px 0px 0px 289px;
+    cursor: pointer;
     
 
 `

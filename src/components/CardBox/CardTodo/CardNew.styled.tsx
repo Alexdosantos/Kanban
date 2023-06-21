@@ -4,13 +4,29 @@ import styled from "styled-components";
 //aqui começa o Card to Do
 export const CardTodo = styled.div`
     position: absolute;
-    width: 355px;
+    width: 375px;
     height: 877px;
     left: 500px;
     top: 146px;
 
     background: #EAEAEA;
     border-radius: 7px;
+    
+   
+    overflow: auto;
+    
+    /* Ocultar a barra de rolagem */
+    scrollbar-width: thin; /* Para navegadores Firefox */
+    scrollbar-color: transparent transparent; /* Para navegadores Chrome e Safari */
+    
+    /* Estilos para navegadores Chrome e Safari */
+    &::-webkit-scrollbar {
+        width: 6px; /* Largura da barra de rolagem */
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: transparent; /* Cor do polegar da barra de rolagem */
+    }
 
 
 `

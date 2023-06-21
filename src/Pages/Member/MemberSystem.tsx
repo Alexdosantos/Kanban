@@ -8,7 +8,8 @@ import { Update } from "../../Services/Update";
 import { lightThemer, darkThemer } from "../../Theme/Theme";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "../../GlobalStyle";
-import Sol from '../../assets/sun-yellow.jpg'
+import { BsFillMoonFill } from "react-icons/bs";
+import { BsSun } from "react-icons/bs";
 
 import { CardNew } from "../../components/CardBox/CardTodo/CardNew";
 import { CardDoing } from "../../components/CardBox/CardDoing/CardDoing";
@@ -57,12 +58,20 @@ const MemberSystem = () => {
     <>
       <ThemeProvider theme={theme === "light" ? lightThemer : darkThemer}>
         <GlobalStyle />
-        <Nav />
-        <button onClick={themeToggler}>
-          
-          {theme === "light" ? <img src={Sol} /> 
-          : <img src={Sol} />}
-        </button>
+        <Nav>
+          <S.BtnThemer onClick={themeToggler}>
+            {theme === "light" ? (
+              <BsFillMoonFill
+                style={{ color: "black", height: "50px", width: "20px" }}
+              />
+            ) : (
+              <BsSun
+                style={{ color: "white", height: "50px", width: "30px" }}
+              />
+            )}
+          </S.BtnThemer>
+        </Nav>
+
         <CardNovo getData={fetchData} />
         <S.CardTodo>
           <S.TitleTodo>To Do</S.TitleTodo>

@@ -1,7 +1,11 @@
 import * as S from './Nav.styled';
 
-const Nav = () => {
-  const username = localStorage.getItem("USER_NAME")
+type NavProps = {
+  children: React.ReactNode;
+};
+
+const Nav = ({ children }: NavProps) => {
+  const username = localStorage.getItem("USER_NAME");
 
   return (
     <>
@@ -9,9 +13,12 @@ const Nav = () => {
         <S.Titleh2>Arnia trello</S.Titleh2>
 
         <S.CadBoxLog>
-          <S.WelcomeH4>Olá,{username}</S.WelcomeH4>
+        {children}
+          <S.WelcomeH4>Olá, {username}</S.WelcomeH4>
           <S.Sair to={"/"}>Sair</S.Sair>
         </S.CadBoxLog>
+
+        
       </S.CardNav>
     </>
   );

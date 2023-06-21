@@ -4,6 +4,7 @@ export interface CardNewProps {
     title: string;
     content: string;
     column: string
+    
   }>;
   handleDelete: (id: string) => void;
   handleMove: (id: string, newColumn: string) => void;
