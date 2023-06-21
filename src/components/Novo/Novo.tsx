@@ -1,4 +1,4 @@
-import { useState, FormEvent,} from "react";
+import { useState, FormEvent } from "react";
 import axios from "axios";
 import ImgAdicionar from "../../assets/adicionar.svg";
 import * as S from "./Novo.Styled";
@@ -8,11 +8,9 @@ interface CardNovoProps {
   getData: () => void;
 }
 
-
-const CardNovo = ({getData}: CardNovoProps) => {
+const CardNovo = ({ getData }: CardNovoProps) => {
   const [title, setTitle] = useState("");
   const [area, setArea] = useState("");
-  
 
   const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -21,7 +19,7 @@ const CardNovo = ({getData}: CardNovoProps) => {
       const headers = {
         "x-api-key": ApiKey.token,
         "Content-Type": "application/json",
-        'Authorization': localStorage.getItem("AUTH_TOKEN") 
+        Authorization: localStorage.getItem("AUTH_TOKEN"),
       };
 
       const response = await axios.post(
@@ -34,15 +32,13 @@ const CardNovo = ({getData}: CardNovoProps) => {
       );
       setTitle("");
       setArea("");
-      getData()
-      
-      
+      getData();
+
       console.log(response.data);
       return response.data;
     } catch (error) {
       console.error("Erro ao adicionar card:", error);
     }
-    
   };
 
   return (
@@ -65,12 +61,10 @@ const CardNovo = ({getData}: CardNovoProps) => {
               onChange={(e) => setArea(e.target.value)}
             ></S.TextArea>
             <div>
-                <S.ButtonNovo type="submit" >
-                  <S.ImgMais src={ImgAdicionar} alt="" />
-                </S.ButtonNovo>
-
+              <S.ButtonNovo type="submit">
+                <S.ImgMais src={ImgAdicionar} alt="" />
+              </S.ButtonNovo>
             </div>
-            
           </form>
         </S.CardBoxNovo>
       </S.CardNovo>

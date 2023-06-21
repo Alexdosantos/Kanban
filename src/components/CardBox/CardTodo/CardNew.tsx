@@ -57,9 +57,12 @@ export const CardNew = ({ dados, handleDelete, handleMove }: CardNewProps) => {
 
     try {
       await PutApi(id, updatedTitle, updatedContent, column);
-      // Lógica adicional, como atualizar o estado dos dados no componente pai
+      setFlippedState((prevState) => ({
+        ...prevState,
+        [id]: !prevState[id],
+      }));
     } catch (error) {
-      // Lidar com o erro, se necessário
+      console.error(error);
     }
   };
 

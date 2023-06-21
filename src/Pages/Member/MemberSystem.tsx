@@ -28,6 +28,8 @@ const MemberSystem = () => {
     fetchData();
   }, []);
 
+  
+
   const handleMove = async (id: string, newColumn: string) => {
     try {
       const card = dados.find((item) => item._id === id);
@@ -79,6 +81,7 @@ const MemberSystem = () => {
             dados={dados.filter((item) => item.column === "TODO")}
             handleDelete={handleDelete}
             handleMove={handleMove}
+            
           />
         </S.CardTodo>
 
