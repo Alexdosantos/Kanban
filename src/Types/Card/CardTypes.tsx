@@ -1,3 +1,5 @@
+
+
 export interface CardNewProps {
   dados: Array<{
     _id: string;
@@ -5,7 +7,11 @@ export interface CardNewProps {
     content: string;
     column: string
     
+    
   }>;
   handleDelete: (id: string) => void;
   handleMove: (id: string, newColumn: string) => void;
+  getDoing: () => void;
+  getTodo: () => void;
+  getDone: () => void;
 }

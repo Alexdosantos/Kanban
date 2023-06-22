@@ -75,7 +75,7 @@ export const ImgEdite = styled.img`
 
 `
 
-export const TextInfo = styled.textarea`
+export const TextInfo = styled.p`
     margin: -75px 0px -35px 30px;
     padding: 10px 15px 0px 12px;
     

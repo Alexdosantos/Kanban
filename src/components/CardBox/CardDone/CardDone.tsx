@@ -1,7 +1,7 @@
 import { CardNewProps } from "../../../Types/Card/CardTypes";
 import ReactCardFlip from "react-card-flip";
 import { useState } from "react";
-import { PutApi } from "../../../Services/Put";
+
 
 import * as S from "../CardDone/CardDone.Style";
 import * as C from "../../Novo/Novo.Styled";
@@ -9,29 +9,33 @@ import Editar from "../../../assets/Editar.svg";
 import BtnExcluir from "../../../assets/lixeira.svg";
 
 import BtnEsquerda from "../../../assets/seta-esquerda.svg";
+import { Update } from "../../../Services/Update";
 
-export const CardDone = ({ dados, handleDelete, handleMove }: CardNewProps) => {
+
+
+export const CardDone = ({ dados, handleDelete, handleMove , getDone }: CardNewProps) => {
   const [flippedState, setFlippedState] = useState<{ [key: string]: boolean }>(
     {}
   );
-  const [inputValues, setInputValues] = useState<{ [key: string]: string }>({});
-  const [inputTitle, setInputTitle] = useState<{ [key: string]: string }>({});
+  const [inputTitle, setinputTitle] = useState<{ [key: string]: string }>({});
+  const [inputContent, setinputContent] = useState<{ [key: string]: string }>({});
+    console.log(inputTitle , inputContent )
 
   const handleCardClick = (id: string) => {
     setFlippedState((prevState) => ({
       ...prevState,
       [id]: !prevState[id],
     }));
-
+    console.log(handleCardClick)
     // Se o cartão for virado, preencher os campos de entrada com os dados correspondentes
     if (!flippedState[id]) {
       const cardData = dados.find((item) => item._id === id);
       if (cardData) {
-        setInputValues((prevValues) => ({
+        setinputTitle((prevValues) => ({
           ...prevValues,
           [id]: cardData.title,
         }));
-        setInputTitle((prevValues) => ({
+        setinputContent((prevValues) => ({
           ...prevValues,
           [id]: cardData.content,
         }));
@@ -40,29 +44,31 @@ export const CardDone = ({ dados, handleDelete, handleMove }: CardNewProps) => {
   };
 
   const handleInputChange = (id: string, value: string) => {
-    setInputValues((prevValues) => ({
+    setinputTitle((prevValues) => ({
       ...prevValues,
       [id]: value,
     }));
   };
 
   const handleInputChange1 = (id: string, value: string) => {
-    setInputTitle((prevValues) => ({
+    setinputContent((prevValues) => ({
       ...prevValues,
       [id]: value,
     }));
   };
 
   const handleSaveClick = async (id: string, column: string) => {
-    const updatedTitle = inputValues[id] || "";
-    const updatedContent = inputTitle[id] || "";
+    const updatedTitle = inputTitle[id] || "";
+    const updatedContent = inputContent[id] || "";
 
     try {
-      await PutApi(id, updatedTitle, updatedContent, column);
+      await Update(id, updatedTitle, updatedContent, column);
       setFlippedState((prevState) => ({
         ...prevState,
         [id]: !prevState[id],
+      
       }));
+      await getDone()
     } catch (error) {
       console.error(error);
     }
@@ -81,10 +87,13 @@ export const CardDone = ({ dados, handleDelete, handleMove }: CardNewProps) => {
           <S.CardBoxToDo key={item._id}>
             <S.BoxTitleEdite>
               <S.Title>{item.title}</S.Title>
-              <S.ButtonEdit onClick={() => handleCardClick(item._id)}>
-                <S.ImgEdite src={Editar} alt="" />
+              <S.ButtonEdit >
+                <S.ImgEdite onClick={() => handleCardClick(item._id)}
+                  src={Editar}
+                  alt="" />
               </S.ButtonEdit>
             </S.BoxTitleEdite>
+           
             <S.TextInfo>{item.content}</S.TextInfo>
 
             <S.DivExcluiEsquerda>
@@ -98,15 +107,15 @@ export const CardDone = ({ dados, handleDelete, handleMove }: CardNewProps) => {
           </S.CardBoxToDo>
 
           <C.CardBoxNovo>
-            <C.BtnFechar onClick={handleCardClick} />
+            <C.BtnFechar onClick={() => handleCardClick(item._id)}/>
             <C.NovoInput
               name="title"
-              value={inputValues[item._id] || ""}
+              defaultValue={inputTitle[item._id] || ""}
               onChange={(e) => handleInputChange(item._id, e.target.value)}
             />
             <C.TextArea
               name="content"
-              value={inputTitle[item._id] || ""}
+              defaultValue={inputContent[item._id] || ""}
               onChange={(e) => handleInputChange1(item._id, e.target.value)}
             />
             <div>

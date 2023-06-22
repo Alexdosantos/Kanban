@@ -3,12 +3,13 @@ import { useState } from "react";
 import { CardNewProps } from "../../../Types/Card/CardTypes";
 import * as S from "../CardTodo/CardNew.styled";
 import * as C from "../../Novo/Novo.Styled";
-import { PutApi } from "../../../Services/Put";
+
 import Editar from "../../../assets/Editar.svg";
 import BtnExcluir from "../../../assets/lixeira.svg";
 import BtnDireita from "../../../assets/seta-direita.svg";
+import { Update } from "../../../Services/Update";
 
-export const CardNew = ({ dados, handleDelete, handleMove }: CardNewProps) => {
+export const CardNew = ({ dados, handleDelete, handleMove, getTodo }: CardNewProps) => {
   const [flippedState, setFlippedState] = useState<{ [key: string]: boolean }>(
     {}
   );
@@ -20,7 +21,7 @@ export const CardNew = ({ dados, handleDelete, handleMove }: CardNewProps) => {
       ...prevState,
       [id]: !prevState[id],
     }));
-
+    console.log(handleCardClick)
     // Se o cartão for virado, preencher os campos de entrada com os dados correspondentes
     if (!flippedState[id]) {
       const cardData = dados.find((item) => item._id === id);
@@ -56,11 +57,12 @@ export const CardNew = ({ dados, handleDelete, handleMove }: CardNewProps) => {
     const updatedContent = inputTitle[id] || "";
 
     try {
-      await PutApi(id, updatedTitle, updatedContent, column);
+      await Update(id, updatedTitle, updatedContent, column);
       setFlippedState((prevState) => ({
         ...prevState,
         [id]: !prevState[id],
       }));
+      await getTodo()
     } catch (error) {
       console.error(error);
     }

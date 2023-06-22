@@ -2,18 +2,19 @@ import { CardNewProps } from "../../../Types/Card/CardTypes";
 import ReactCardFlip from "react-card-flip";
 import * as C from "../../Novo/Novo.Styled";
 import { useState } from "react";
-import { PutApi } from "../../../Services/Put";
 
 import * as S from "./CardDoing.styled";
 import Editar from "../../../assets/Editar.svg";
 import BtnExcluir from "../../../assets/lixeira.svg";
 import BtnDireita from "../../../assets/seta-direita.svg";
 import BtnEsquerda from "../../../assets/seta-esquerda.svg";
+import { Update } from "../../../Services/Update";
 
 export const CardDoing = ({
   dados,
   handleDelete,
   handleMove,
+  getDoing
 }: CardNewProps) => {
   const [flippedState, setFlippedState] = useState<{ [key: string]: boolean }>(
     {}
@@ -62,11 +63,12 @@ export const CardDoing = ({
     const updatedContent = inputTitle[id] || "";
 
     try {
-      await PutApi(id, updatedTitle, updatedContent, column);
+      await Update(id, updatedTitle, updatedContent, column);
       setFlippedState((prevState) => ({
         ...prevState,
         [id]: !prevState[id],
       }));
+      await getDoing()
     } catch (error) {
       console.error(error);
     }

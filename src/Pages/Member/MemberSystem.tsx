@@ -75,9 +75,10 @@ const MemberSystem = () => {
         </Nav>
 
         <CardNovo getData={fetchData} />
-        <S.CardTodo>
+        <S.CardTodo >
           <S.TitleTodo>To Do</S.TitleTodo>
           <CardNew
+            getTodo={fetchData}
             dados={dados.filter((item) => item.column === "TODO")}
             handleDelete={handleDelete}
             handleMove={handleMove}
@@ -85,21 +86,25 @@ const MemberSystem = () => {
           />
         </S.CardTodo>
 
-        <S.CardDoing>
+        <S.CardDoing >
           <S.TitleTodo>Doing</S.TitleTodo>
           <CardDoing
+            getDoing={fetchData}
             dados={dados.filter((item) => item.column === "DOING")}
             handleDelete={handleDelete}
             handleMove={handleMove}
+            
           />
         </S.CardDoing>
 
         <S.CardDone>
           <S.TitleTodo>Done</S.TitleTodo>
           <CardDone
+            getDone={fetchData}
             dados={dados.filter((item) => item.column === "DONE")}
             handleDelete={handleDelete}
             handleMove={handleMove}
+            
           />
         </S.CardDone>
       </ThemeProvider>
