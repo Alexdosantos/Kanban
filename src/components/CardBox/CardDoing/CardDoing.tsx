@@ -14,7 +14,7 @@ export const CardDoing = ({
   dados,
   handleDelete,
   handleMove,
-  getDoing
+  getData
 }: CardNewProps) => {
   const [flippedState, setFlippedState] = useState<{ [key: string]: boolean }>(
     {}
@@ -68,7 +68,7 @@ export const CardDoing = ({
         ...prevState,
         [id]: !prevState[id],
       }));
-      await getDoing()
+      await getData()
     } catch (error) {
       console.error(error);
     }

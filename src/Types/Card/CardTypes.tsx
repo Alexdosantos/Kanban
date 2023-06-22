@@ -11,7 +11,6 @@ export interface CardNewProps {
   }>;
   handleDelete: (id: string) => void;
   handleMove: (id: string, newColumn: string) => void;
-  getDoing: () => void;
-  getTodo: () => void;
-  getDone: () => void;
+  getData: () => Promise <void>;
+  
 }

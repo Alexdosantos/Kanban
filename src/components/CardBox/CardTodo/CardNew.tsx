@@ -9,7 +9,7 @@ import BtnExcluir from "../../../assets/lixeira.svg";
 import BtnDireita from "../../../assets/seta-direita.svg";
 import { Update } from "../../../Services/Update";
 
-export const CardNew = ({ dados, handleDelete, handleMove, getTodo }: CardNewProps) => {
+export const CardNew = ({ dados, handleDelete, handleMove, getData }: CardNewProps) => {
   const [flippedState, setFlippedState] = useState<{ [key: string]: boolean }>(
     {}
   );
@@ -62,7 +62,7 @@ export const CardNew = ({ dados, handleDelete, handleMove, getTodo }: CardNewPro
         ...prevState,
         [id]: !prevState[id],
       }));
-      await getTodo()
+      await getData()
     } catch (error) {
       console.error(error);
     }

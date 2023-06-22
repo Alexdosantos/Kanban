@@ -78,7 +78,7 @@ const MemberSystem = () => {
         <S.CardTodo >
           <S.TitleTodo>To Do</S.TitleTodo>
           <CardNew
-            getTodo={fetchData}
+            getData={fetchData}
             dados={dados.filter((item) => item.column === "TODO")}
             handleDelete={handleDelete}
             handleMove={handleMove}
@@ -89,7 +89,7 @@ const MemberSystem = () => {
         <S.CardDoing >
           <S.TitleTodo>Doing</S.TitleTodo>
           <CardDoing
-            getDoing={fetchData}
+            getData={fetchData}
             dados={dados.filter((item) => item.column === "DOING")}
             handleDelete={handleDelete}
             handleMove={handleMove}
@@ -100,7 +100,7 @@ const MemberSystem = () => {
         <S.CardDone>
           <S.TitleTodo>Done</S.TitleTodo>
           <CardDone
-            getDone={fetchData}
+           getData={fetchData}
             dados={dados.filter((item) => item.column === "DONE")}
             handleDelete={handleDelete}
             handleMove={handleMove}

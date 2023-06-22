@@ -13,7 +13,7 @@ import { Update } from "../../../Services/Update";
 
 
 
-export const CardDone = ({ dados, handleDelete, handleMove , getDone }: CardNewProps) => {
+export const CardDone = ({ dados, handleDelete, handleMove , getData }: CardNewProps) => {
   const [flippedState, setFlippedState] = useState<{ [key: string]: boolean }>(
     {}
   );
@@ -68,7 +68,7 @@ export const CardDone = ({ dados, handleDelete, handleMove , getDone }: CardNewP
         [id]: !prevState[id],
       
       }));
-      await getDone()
+      await getData()
     } catch (error) {
       console.error(error);
     }
